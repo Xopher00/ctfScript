@@ -35,7 +35,6 @@ def log_miss(line):
     file.close()
 
 # this is the function that tests the url
-# this might be faster to do this with HEAD and then only do a GET if the page does not return a 404 or 400
 def test_page(page):
     response = proxy.request('HEAD', page)
     if response.status != 404:
@@ -43,13 +42,9 @@ def test_page(page):
         line = page + "\n" + str(response.status) + "\n" + str(response.headers) + "\n" + str(response.data) + "\n"
         log_hit(line)
     else:
-        #line = page + " c0d3: " + str(response.status) + " h34d3r5: " + str(response.headers) + "\n"
-        #log_miss(line) # this is really just for testing, no need to write out all the 404s
         pass
-        #print(page + " c0d3: " + str(response.status) + " h34d3r5: " + str(response.headers) + "\n")
 		
 # function to build a List from a word list file for words to tests
-# ToDO this function should strip out nonsense lines like comments at the top of word list.
 def get_words(list):
     list = open(list,"r")
     for i in list.readlines():
